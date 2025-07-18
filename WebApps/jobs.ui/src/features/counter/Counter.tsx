@@ -11,12 +11,14 @@ import {
   selectCount,
   selectStatus,
   getPositions,
+  selectData
 } from "./counterSlice"
 
 export const Counter = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const count = useAppSelector(selectCount)
   const status = useAppSelector(selectStatus)
+  const dataFromEndpoint = useAppSelector(selectData)
   const [incrementAmount, setIncrementAmount] = useState("2")
 
   const incrementValue = Number(incrementAmount) || 0
@@ -29,6 +31,13 @@ export const Counter = (): JSX.Element => {
 
   return (
     <div>
+      {dataFromEndpoint && (
+        <div>
+          {dataFromEndpoint.map((item: any) => (
+            <div key={item.id}>{item.title}</div>
+          ))}
+        </div>
+      )}
       <div className={styles.row}>
         <button
           className={styles.button}

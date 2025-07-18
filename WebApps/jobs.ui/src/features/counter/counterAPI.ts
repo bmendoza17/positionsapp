@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://localhost:7113/api', // Replace with your actual base URL
+  baseURL: 'https://hikruapi-fbdshfg7hrbmeuh6.canadacentral-01.azurewebsites.net/api', // Replace with your actual base URL
   headers: {
     'Content-Type': 'application/json',
     // Add any other default headers here, e.g., Authorization

@@ -106,7 +106,7 @@ export const { decrement, increment, incrementByAmount, incrementAsync } =
   counterSlice.actions
 
 // Selectors returned by `slice.selectors` take the root state as their first argument.
-export const { selectCount, selectStatus } = counterSlice.selectors
+export const { selectCount, selectStatus, selectData } = counterSlice.selectors
 
 // We can also write thunks by hand, which may contain both sync and async logic.
 // Here's an example of conditionally dispatching actions based on current state.
