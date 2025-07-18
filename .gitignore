@@ -103,7 +103,6 @@ build/ # If you use a custom build directory name
 *.suo
 *.ntvs*
 *.njsproj
-*.sln
 *.sw?
 
 # Other temporary or generated files
