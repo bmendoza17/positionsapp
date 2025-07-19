@@ -104,6 +104,7 @@ build/ # If you use a custom build directory name
 *.ntvs*
 *.njsproj
 *.sw?
+*.csproj.user
 
 # Other temporary or generated files
 tmp/
