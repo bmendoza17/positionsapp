@@ -1,14 +1,14 @@
-﻿namespace Job.Application.Dtos
+﻿namespace Job.Application.Entities
 {
-    public record PositionDto(
-        int Id,
+    public record PositionEntity(
         string Title,
         string Description,
         string Location,
         string Status,
-        string RecruiterName,
-        string DepartmentName,
+        int RecruiterId,
+        int DepartmentId,
         decimal Budget,
+        int? Id,
         DateTime? ClosingDate
     );
 }

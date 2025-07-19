@@ -3,16 +3,17 @@ using FluentValidation;
 using Job.Application.Entities;
 using Job.Domain.Enums;
 
-namespace Job.Application.Positions.Commands.CreatePosition
+namespace Job.Application.Positions.Commands.UpdatePosition
 {
-    public record CreatePositionCommand(PositionEntity Position) : ICommand<CreatePositionResult>;
+    public record UpdatePositionCommand(PositionEntity Position) : ICommand<UpdatePositionResult>;
 
-    public record CreatePositionResult(int Id);
+    public record UpdatePositionResult(bool IsUpdated);
 
-    public class CreatePositionCommandValidator : AbstractValidator<CreatePositionCommand>
+    public class UpdatePositionCommandValidator : AbstractValidator<UpdatePositionCommand>
     {
-        public CreatePositionCommandValidator()
+        public UpdatePositionCommandValidator()
         {
+            RuleFor(x => x.Position.Id).NotEmpty();
             RuleFor(x => x.Position.Title).NotEmpty().MaximumLength(100);
             RuleFor(x => x.Position.Description).NotEmpty().MaximumLength(1000);
             RuleFor(x => x.Position.Location).NotEmpty();

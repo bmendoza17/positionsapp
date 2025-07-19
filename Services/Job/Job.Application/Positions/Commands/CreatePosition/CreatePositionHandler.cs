@@ -1,6 +1,6 @@
 ﻿using BuildingBlocks.CQRS;
 using Job.Application.Data;
-using Microsoft.EntityFrameworkCore;
+using Job.Domain.Models;
 
 namespace Job.Application.Positions.Commands.CreatePosition
 {
@@ -10,28 +10,24 @@ namespace Job.Application.Positions.Commands.CreatePosition
     {
         public async Task<CreatePositionResult> Handle(CreatePositionCommand command, CancellationToken cancellationToken)
         {
-            //create Product entity from command object
-            //save to database
-            //return CreateProductResult result               
+            var positionEntity = command.Position;
 
-            //var product = new Job
-            //{
-            //    Name = command.Name,
-            //    Category = command.Category,
-            //    Description = command.Description,
-            //    ImageFile = command.ImageFile,
-            //    Price = command.Price
-            //};
+            var positionModel = new Position() {
+                Title = positionEntity.Title,
+                Description = positionEntity.Description,
+                Location = positionEntity.Location,
+                Status = positionEntity.Status,
+                RecruiterId = positionEntity.RecruiterId,
+                DepartmentId = positionEntity.DepartmentId,
+                Budget = positionEntity.Budget,
+                ClosingDate = positionEntity.ClosingDate
+            };
 
-            ////save to database
-            //session.Store(product);
-            //await session.SaveChangesAsync(cancellationToken);
+            var response = await dbContext.Positions.AddAsync(positionModel, cancellationToken);
 
-            //return result
+            await dbContext.SaveChangesAsync(cancellationToken);
 
-            var respose = await dbContext.Recruiters.ToListAsync();
-
-            return new CreatePositionResult(0);
+            return new CreatePositionResult(response.Entity.Id);
         }
     }
 }

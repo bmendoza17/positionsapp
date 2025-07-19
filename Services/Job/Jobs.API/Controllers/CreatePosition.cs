@@ -1,12 +1,12 @@
 ﻿using Carter;
-using Job.Application.Dtos;
+using Job.Application.Entities;
 using Job.Application.Positions.Commands.CreatePosition;
 using Mapster;
 using MediatR;
 
 namespace Job.API.Controllers
 {
-    public record CreatePositionRequest(PositionDto Position);
+    public record CreatePositionRequest(PositionEntity Position);
 
     public record CreatePositionResponse(int Id);
 
@@ -19,9 +19,7 @@ namespace Job.API.Controllers
             {
                 var command = request.Adapt<CreatePositionCommand>();
 
-                var comand = new CreatePositionCommand(new PositionDto(0, "as", "lo", string.Empty, "ho", 1, 34, 10, DateTime.Now));
-
-                var result = await sender.Send(comand);
+                var result = await sender.Send(command);
 
                 var response = result.Adapt<CreatePositionResponse>();
 

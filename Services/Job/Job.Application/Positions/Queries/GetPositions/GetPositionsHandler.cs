@@ -1,6 +1,6 @@
 ﻿using BuildingBlocks.CQRS;
 using Job.Application.Data;
-using Job.Application.Extensions;
+using Job.Application.Dtos;
 using Microsoft.EntityFrameworkCore;
 
 namespace Job.Application.Positions.Queries.GetPositions
@@ -11,6 +11,9 @@ namespace Job.Application.Positions.Queries.GetPositions
         {
             var positions = await hikruDbContext.Positions
                 .AsNoTracking()
+                .Include(p => p.Department)
+                .Include(p => p.Recruiter)
+                .Select(a => new PositionDto(a.Id, a.Title, a.Description, a.Location, a.Status, a.Recruiter.Name, a.Department.Name, a.Budget, a.ClosingDate))
                 .ToListAsync(cancellationToken);
 
             if (positions == null || positions.Count == 0)
@@ -18,7 +21,7 @@ namespace Job.Application.Positions.Queries.GetPositions
                 return new GetPositionsResult([]);
             }
 
-            return new GetPositionsResult([.. positions.ToPositionDtoList()]);
+            return new GetPositionsResult(positions);
         }
     }
 }
