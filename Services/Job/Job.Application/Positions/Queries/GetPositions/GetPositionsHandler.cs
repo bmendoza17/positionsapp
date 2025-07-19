@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Job.Application.Positions.Queries.GetPositions
 {
-    public class GetPositionsHandler(IHikruDbContext hikruDbContext) : IQueryHandler<GetPositionsQuery, GetPositionsResult>
+    public class GetPositionsHandler(IHikruDbContext hikruDbContext) : IQueryHandler<GetPositionsQuery, GetDepartmentsResult>
     {
-        public async Task<GetPositionsResult> Handle(GetPositionsQuery query, CancellationToken cancellationToken)
+        public async Task<GetDepartmentsResult> Handle(GetPositionsQuery query, CancellationToken cancellationToken)
         {
             var positions = await hikruDbContext.Positions
                 .AsNoTracking()
@@ -18,10 +18,10 @@ namespace Job.Application.Positions.Queries.GetPositions
 
             if (positions == null || positions.Count == 0)
             {
-                return new GetPositionsResult([]);
+                return new GetDepartmentsResult([]);
             }
 
-            return new GetPositionsResult(positions);
+            return new GetDepartmentsResult(positions);
         }
     }
 }

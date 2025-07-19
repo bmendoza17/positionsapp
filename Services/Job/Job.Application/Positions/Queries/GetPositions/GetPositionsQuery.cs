@@ -4,7 +4,7 @@ using Job.Application.Dtos;
 namespace Job.Application.Positions.Queries.GetPositions
 {
     public record GetPositionsQuery()
-    : IQuery<GetPositionsResult>;
+    : IQuery<GetDepartmentsResult>;
 
-    public record GetPositionsResult(List<PositionDto> Positions);
+    public record GetDepartmentsResult(List<PositionDto> Positions);
 }

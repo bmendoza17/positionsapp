@@ -8,15 +8,15 @@ namespace Job.API.Controllers
 {
     public class UpdatePosition : ICarterModule
     {
-        public record UpdatePositionRequest(PositionEntity Position);
+        public record UpdatePositionRequest(PositionUpdateEntity Position);
 
         public record UpdatePositionResponse(bool IsUpdated);
 
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapPut("/positions", async (UpdatePositionRequest request, ISender sender) =>
+            app.MapPut("api/positions/{positionId}", async (int positionId, UpdatePositionRequest request, ISender sender) =>
             {
-                var command = request.Adapt<UpdatePositionCommand>();
+                var command = new UpdatePositionCommand(positionId, request.Position);
 
                 var result = await sender.Send(command);
 

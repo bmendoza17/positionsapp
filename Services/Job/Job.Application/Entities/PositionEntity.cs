@@ -8,7 +8,6 @@
         int RecruiterId,
         int DepartmentId,
         decimal Budget,
-        int? Id,
         DateTime? ClosingDate
     );
 }

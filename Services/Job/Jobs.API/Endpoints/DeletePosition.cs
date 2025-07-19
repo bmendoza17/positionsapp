@@ -11,9 +11,9 @@ namespace Job.API.Controllers
 
         public void AddRoutes(IEndpointRouteBuilder app)
         {
-            app.MapDelete("/positions/{id}", async (int Id, ISender sender) =>
+            app.MapDelete("api/positions/{positionId}", async (int PositionId, ISender sender) =>
             {
-                var result = await sender.Send(new DeletePositionCommand(Id));
+                var result = await sender.Send(new DeletePositionCommand(PositionId));
 
                 var response = result.Adapt<DeletePositionResponse>();
 

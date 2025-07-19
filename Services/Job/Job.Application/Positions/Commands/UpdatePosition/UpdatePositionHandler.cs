@@ -1,9 +1,6 @@
 ﻿using BuildingBlocks.CQRS;
 using Job.Application.Data;
-using Job.Application.Entities;
 using Job.Application.Exceptions;
-using Job.Application.Positions.Commands.CreatePosition;
-using Job.Domain.Models;
 
 namespace Job.Application.Positions.Commands.UpdatePosition
 {
@@ -11,23 +8,20 @@ namespace Job.Application.Positions.Commands.UpdatePosition
     {
         public async Task<UpdatePositionResult> Handle(UpdatePositionCommand command, CancellationToken cancellationToken)
         {
-            var positionId = command.Position.Id;
-
-            var position = await dbContext.Positions
-                .FindAsync(positionId, cancellationToken) ?? throw new PositionNotFoundException(positionId ?? -1);
+            var positionToUpdate = await dbContext.Positions
+                .FindAsync([command.PositionId], cancellationToken)
+                ?? throw new PositionNotFoundException(command.PositionId);
 
             var positionEntity = command.Position;
 
-            position.Title = positionEntity.Title;
-            position.Description = positionEntity.Description;
-            position.Location = positionEntity.Location;
-            position.Status = positionEntity.Status;
-            position.RecruiterId = positionEntity.RecruiterId;
-            position.DepartmentId = positionEntity.DepartmentId;
-            position.Budget = positionEntity.Budget;
-            position.ClosingDate = positionEntity.ClosingDate;
-
-            //var response = dbContext.Positions.Update(position);
+            positionToUpdate.Title = positionEntity.Title ?? positionToUpdate.Title;
+            positionToUpdate.Description = positionEntity.Description ?? positionToUpdate.Description;
+            positionToUpdate.Location = positionEntity.Location ?? positionToUpdate.Location;
+            positionToUpdate.Status = positionEntity.Status ?? positionToUpdate.Status;
+            positionToUpdate.RecruiterId = positionEntity.RecruiterId ?? positionToUpdate.RecruiterId;
+            positionToUpdate.DepartmentId = positionEntity.DepartmentId ?? positionToUpdate.DepartmentId;
+            positionToUpdate.Budget = positionEntity.Budget ?? positionToUpdate.Budget;
+            positionToUpdate.ClosingDate = positionEntity.ClosingDate ?? positionToUpdate.ClosingDate;
 
             await dbContext.SaveChangesAsync(cancellationToken);
 
