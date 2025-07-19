@@ -6,7 +6,11 @@ name: Build and deploy ASP.Net Core app to Azure Web App - hikruapi
 on:
   push:
     branches:
-      - dev/bmendoza/webapi
+      - main
+    pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - master
   workflow_dispatch:
 
 jobs:
